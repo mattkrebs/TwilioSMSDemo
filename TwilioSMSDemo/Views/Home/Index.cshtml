@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Twilio.SMSMessage>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2 class="hidden-phone">Text For Help Demo</h2>
+
+@using (Html.BeginForm("SendSMS", "Home"))
+{
+  <div><label>Person</label> @Html.DropDownList("PhoneNumber")</div>
+    <div id="Main">
+        @foreach (var item in Model) {
+    
+            <div class="well @item.Status">
+                <span>Sent: @Html.DisplayFor(modelItem => item.DateSent)</span><br />
+                @Html.DisplayFor(modelItem => item.Body)         
+            </div>
+            <div style="clear:both;"></div>
+        }
+        </div>
+    @Html.TextArea("message", new { @rows = "3", @class="message-area" });<br />
+    <input class="btn btn-primary" type="submit" value="Send" />
+}
+
+<script>
+
+    //scroll to bottom
+    
+    $("#Main").scrollTop($("#Main")[0].scrollHeight);
+    
+</script>
